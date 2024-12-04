@@ -68,13 +68,23 @@ const config: ExpoConfig = {
     },
   },
   android: {
+    icon: './assets/images/icon.png',
+    splash: {
+      image: './assets/images/splash.png',
+      resizeMode: 'contain',
+      backgroundColor: '#000000',
+    },
+    permissions: ['android.permission.POST_NOTIFICATIONS'],
     adaptiveIcon: {
       foregroundImage: './assets/images/adaptive-icon.png',
       backgroundColor: '#ffffff',
     },
+    backgroundColor: '#FFFFFF',
     package: 'dev.cardor.enmanuelmag.rn_challenge',
     googleServicesFile: './keys/google-services.json',
   },
+  platforms: ['ios', 'android'],
+  owner: 'enmanuelmag',
   experiments: {
     typedRoutes: false,
   },
