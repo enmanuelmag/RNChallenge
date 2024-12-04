@@ -20,7 +20,7 @@ const BaseCard = (props: BaseCardProps) => {
   return (
     <Card
       bordered
-      className={$('cd-rounded-lg cd-bg-white', classes)}
+      className={$('cd-rounded-lg cd-bg-white dark:cd-bg-zinc-900', classes)}
       size="$2"
       onPress={(e) => {
         e.preventDefault();

@@ -1,11 +1,15 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
+import * as Burnt from 'burnt';
 import { Image } from 'expo-image';
+import { Plus } from '@tamagui/lucide-icons';
 import { useQuery } from '@tanstack/react-query';
 import { Separator, Text, View, XStack, YStack } from 'tamagui';
 import { Stack, useLocalSearchParams } from 'expo-router';
 
 import DataRepo from '@api/datasource';
+
+import { useAppStore } from '@store/index';
 
 import { PokemonDetailType } from '@customTypes/pokemon';
 
@@ -18,12 +22,19 @@ import { isLoadingRefetchQuery } from '@utils/network';
 
 import Logo from '@components/shared/logo';
 import LoaderText from '@components/shared/loaderText';
+import ActionIcon from '@components/shared/actionIcon';
+import ConfirmModal from '@components/shared/confirmModal';
 import GradientList from '@components/shared/gradientList';
+import PageViewerCustom from '@components/shared/pageViewer';
+import FloatingButtons from '@components/shared/floatingButtons';
 import DismissKeyboardHOC from '@components/shared/dismissKeyboardHOC';
-import AudioButton from '@components/shared/audioButton';
 
 const DetailScreen = () => {
+  const { addPokemon, team } = useAppStore();
+
   const { id } = useLocalSearchParams<{ id: string }>();
+
+  const [confirmCatch, setConfirmCatch] = React.useState(false);
 
   const pokemonDetailQuery = useQuery<PokemonDetailType, ErrorService, PokemonDetailType, string[]>(
     {
@@ -54,84 +65,143 @@ const DetailScreen = () => {
 
   return (
     <DismissKeyboardHOC>
-      <GradientList>
-        <YStack className="cd-h-full" gap="$3" padding="$3">
-          <XStack justifyContent="space-between">
-            <YStack gap="$1">
-              <Text className="cd-text-gray-900 cd-text-xl cd-font-bold dark:cd-text-gray-100 cd-mb-[8]">
-                {capitalize(data?.name)}
-              </Text>
-              <Text className="cd-text-base cd-text-gray-500 dark:cd-text-gray-400">
-                Types: {data?.types.map((t) => capitalize(t.type.name)).join(', ')}
-              </Text>
-              <Text className="cd-text-base cd-text-gray-500 dark:cd-text-gray-400">
-                Height: {data?.height}, Weight: {data?.weight}
-              </Text>
+      <ConfirmModal
+        closeText="Not now"
+        confirmColor="green"
+        confirmText="Catch it!"
+        content={
+          <Text className="cd-text-base cd-text-gray-800 dark:cd-text-gray-200">
+            Do you want to catch
+            <Text className="cd-text-blue dark:cd-text-blue-light cd-font-semibold">
+              {' '}
+              {capitalize(data?.name)}
+            </Text>
+            ?
+          </Text>
+        }
+        open={confirmCatch}
+        title="Catch Pokemon"
+        onConfirm={() => {
+          Burnt.toast({
+            preset: 'done',
+            title: 'Pokemon caught!',
+            message: `You caught ${capitalize(data?.name)}!`,
+          });
+
+          addPokemon(data!);
+
+          setConfirmCatch(false);
+        }}
+        onOpenChange={(v) => {
+          if (!v) {
+            setConfirmCatch(v);
+          }
+        }}
+      >
+        <React.Fragment>
+          <Stack.Screen
+            options={{
+              headerTitle: () => <Logo colored="Detail" normal="Poke" />,
+            }}
+          />
+          <GradientList>
+            <YStack className="cd-h-full" gap="$3" padding="$3">
+              <XStack justifyContent="space-between">
+                <YStack gap="$1">
+                  <Text className="cd-text-gray-900 cd-text-xl cd-font-bold dark:cd-text-gray-100 cd-mb-[8]">
+                    {capitalize(data?.name)}
+                  </Text>
+                  <Text className="cd-text-base cd-text-gray-500 dark:cd-text-gray-400">
+                    Types: {data?.types.map((t) => capitalize(t.type.name)).join(', ')}
+                  </Text>
+                  <Text className="cd-text-base cd-text-gray-500 dark:cd-text-gray-400">
+                    Height: {data?.height}, Weight: {data?.weight}
+                  </Text>
+                </YStack>
+                {data?.sprites.front_default && (
+                  <Image
+                    className="cd-w-full"
+                    contentFit="contain"
+                    placeholder={{ blurhash }}
+                    source={{ uri: data?.sprites.front_default }}
+                    transition={750}
+                  />
+                )}
+              </XStack>
+
+              <Separator className="cd-mt-[8]" />
+
+              <YStack gap="$1">
+                <Text className="cd-text-base cd-text-gray-800 dark:cd-text-gray-300 cd-font-semibold">
+                  Abilities
+                </Text>
+                {data?.abilities.map((a) => (
+                  <Text
+                    className="cd-text-base cd-text-gray-500 dark:cd-text-gray-400"
+                    key={a.ability.name}
+                  >
+                    {capitalize(a.ability.name)}
+                  </Text>
+                ))}
+              </YStack>
+
+              <Separator className="cd-mt-[8]" />
+
+              <YStack gap="$1">
+                <Text className="cd-text-base cd-text-gray-800 dark:cd-text-gray-300 cd-font-semibold">
+                  Stats
+                </Text>
+                {data?.stats.map((s) => (
+                  <Text
+                    className="cd-text-base cd-text-gray-500 dark:cd-text-gray-400"
+                    key={s.stat.name}
+                  >
+                    {capitalize(s.stat.name)}: {s.base_stat}
+                  </Text>
+                ))}
+              </YStack>
+
+              <Separator className="cd-mt-[8]" />
+
+              <YStack gap="$1">
+                <Text className="cd-text-base cd-text-gray-800 dark:cd-text-gray-300 cd-font-semibold">
+                  Sprites
+                </Text>
+
+                <PageViewerCustom
+                  items={[
+                    data?.sprites.front_shiny,
+                    data?.sprites.back_shiny,
+                    data?.sprites.front_female,
+                    data?.sprites.back_default,
+                  ]
+                    .filter(Boolean)
+                    .map((url) => (
+                      <Image
+                        className="cd-w-[128] cd-h-[128]"
+                        contentFit="contain"
+                        placeholder={{ blurhash }}
+                        source={{ uri: url! }}
+                        transition={750}
+                      />
+                    ))}
+                />
+              </YStack>
             </YStack>
-            {data?.sprites.front_default && (
-              <Image
-                className="cd-w-full"
-                contentFit="contain"
-                placeholder={{ blurhash }}
-                source={{ uri: data?.sprites.front_default }}
-                transition={750}
-              />
-            )}
-          </XStack>
-
-          <Separator className="cd-mt-[8]" />
-
-          <YStack gap="$1">
-            <Text className="cd-text-base cd-text-gray-800 dark:cd-text-gray-300 cd-font-semibold">
-              Abilities
-            </Text>
-            {data?.abilities.map((a) => (
-              <Text
-                className="cd-text-base cd-text-gray-500 dark:cd-text-gray-400"
-                key={a.ability.name}
-              >
-                {capitalize(a.ability.name)}
-              </Text>
-            ))}
-          </YStack>
-
-          <Separator className="cd-mt-[8]" />
-
-          <YStack gap="$1">
-            <Text className="cd-text-base cd-text-gray-800 dark:cd-text-gray-300 cd-font-semibold">
-              Stats
-            </Text>
-            {data?.stats.map((s) => (
-              <Text
-                className="cd-text-base cd-text-gray-500 dark:cd-text-gray-400"
-                key={s.stat.name}
-              >
-                {capitalize(s.stat.name)}: {s.base_stat}
-              </Text>
-            ))}
-          </YStack>
-
-          <Separator className="cd-mt-[8]" />
-
-          {data?.cries.latest && (
-            <AudioButton
-              classes="cd-mt-[8]"
-              text="Play latest pokemon cry"
-              url={data?.cries.latest}
+          </GradientList>
+          <FloatingButtons key="floating-budget">
+            <ActionIcon
+              color="blue"
+              disabled={team.some((p) => p.id === data?.id)}
+              icon={<Plus color="white" size={22} />}
+              variant="primary"
+              onPress={() => {
+                setConfirmCatch(true);
+              }}
             />
-          )}
-
-          {data?.cries.legacy && (
-            <AudioButton
-              classes="cd-mt-[8]"
-              text="Play legacy pokemon cry"
-              url={data?.cries.legacy}
-            />
-          )}
-
-          {(data?.cries.legacy || data?.cries.latest) && <Separator className="cd-mt-[8]" />}
-        </YStack>
-      </GradientList>
+          </FloatingButtons>
+        </React.Fragment>
+      </ConfirmModal>
     </DismissKeyboardHOC>
   );
 };

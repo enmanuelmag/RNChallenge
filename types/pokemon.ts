@@ -26,6 +26,10 @@ export const PokemonDetailSchema = z.object({
   ),
   sprites: z.object({
     front_default: z.string().url(),
+    front_female: z.string().url().nullable(),
+    front_shiny: z.string().url().nullable(),
+    back_default: z.string().url().nullable(),
+    back_shiny: z.string().url().nullable(),
   }),
   stats: z.array(
     z.object({

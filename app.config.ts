@@ -17,7 +17,6 @@ const config: ExpoConfig = {
     '@react-native-firebase/app',
     '@react-native-firebase/auth',
     'expo-apple-authentication',
-    'expo-audio',
     [
       'expo-secure-store',
       {
