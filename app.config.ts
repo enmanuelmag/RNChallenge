@@ -6,10 +6,10 @@ import { ExpoConfig } from 'expo/config';
 
 const config: ExpoConfig = {
   name: 'RN Challenge',
-  slug: 'dev.cardor.enmanuelmag.rn-challenge',
+  slug: 'dev.cardor.enmanuelmag.rnchallenge',
   version: '1.0.0',
   orientation: 'portrait',
-  icon: './assets/images/icon.png',
+  icon: './src/assets/images/icon.png',
   scheme: 'myapp',
   userInterfaceStyle: 'automatic',
   plugins: [
@@ -49,13 +49,13 @@ const config: ExpoConfig = {
       'expo-notifications',
       {
         color: '#FFFFFF',
-        icon: './assets/images/icon.png',
+        icon: './src/assets/images/icon.png',
         defaultChannel: 'default',
       },
     ],
   ],
   splash: {
-    image: './assets/images/splash.png',
+    image: './src/assets/images/splash.png',
     resizeMode: 'contain',
     backgroundColor: '#ffffff',
   },
@@ -66,10 +66,10 @@ const config: ExpoConfig = {
   },
   android: {
     adaptiveIcon: {
-      foregroundImage: './assets/images/adaptive-icon.png',
+      foregroundImage: './src/assets/images/adaptive-icon.png',
       backgroundColor: '#ffffff',
     },
-    package: 'dev.cardor.enmanuelmag.rn-challenge',
+    package: 'dev.cardor.enmanuelmag.rn_challenge',
     googleServicesFile: './keys/google-services.json',
   },
   experiments: {
