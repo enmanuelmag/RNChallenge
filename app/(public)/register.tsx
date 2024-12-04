@@ -41,7 +41,7 @@ const Register = () => {
       }
       if (userData) {
         setUser(userData);
-        router.push(Routes.HOME);
+        router.push(Routes.POKEDEX);
       }
     },
   });
@@ -50,12 +50,12 @@ const Register = () => {
     <DismissKeyboardHOC>
       <View className="cd-h-full cd-flex cd-justify-center cd-flex-col">
         <YStack gap="$4" padding="$6">
-          <Logo classes="cd-text-4xl cd-mb-[12]" colored="fy" normal="Budget" />
+          <Logo classes="cd-text-4xl cd-mb-[12]" colored="Challenge" normal="RN" />
+
           <YStack className="cd-mt-[8]" gap="$2.5">
             <View className="cd-grow">
               <ButtonCustom
                 color="google"
-                disabled={registerGoogleMutation.isPending && !registerGoogleMutation.isIdle}
                 iconLeft={<LogIn />}
                 loading={registerGoogleMutation.isPending && !registerGoogleMutation.isIdle}
                 text="Sign up with Google"
@@ -65,7 +65,7 @@ const Register = () => {
             </View>
           </YStack>
           <Separator className="cd-mt-[8]" />
-          <Text className="cd-text-center cd-text-gray-500">
+          <Text className="cd-text-center cd-text-gray-500 cd-leading-[24px]">
             Already have an account?{' '}
             <Link
               className="cd-text-primary dark:cd-text-primary-dark cd-font-bold"

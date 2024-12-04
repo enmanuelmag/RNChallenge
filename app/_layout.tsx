@@ -30,7 +30,7 @@ Notifications.setNotificationHandler({
 SplashScreen.preventAutoHideAsync();
 
 export default function Page() {
-  const { user, usedSystemTheme, theme, setTheme, setUsedSystemTheme } = useAppStore();
+  const { user, usedSystemTheme, tabSelected, theme, setTheme, setUsedSystemTheme } = useAppStore();
 
   const { colorScheme, setColorScheme } = useColorScheme();
 
@@ -39,8 +39,9 @@ export default function Page() {
     if (!user) {
       router.push(Routes.LOGIN);
     } else {
-      router.push(Routes.HOME);
+      router.push(tabSelected ?? Routes.POKEDEX);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   React.useEffect(() => {

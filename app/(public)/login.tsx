@@ -5,8 +5,6 @@ import { Separator, Text, View, YStack } from 'tamagui';
 import { LogIn } from '@tamagui/lucide-icons';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { type LoginType } from '@customTypes/auth';
-
 import DataRepo from '@api/datasource';
 
 import { Routes } from '@constants/routes';
@@ -23,29 +21,6 @@ import DismissKeyboardHOC from '@components/shared/dismissKeyboardHOC';
 const Login = () => {
   const queryClient = useQueryClient();
   const { clear, setUser } = useAppStore();
-
-  const loginMutation = useMutation<UserType, ErrorService, LoginType>({
-    networkMode: 'always',
-    mutationKey: [QKeys.LOGIN_KEY],
-    mutationFn: async (data) => {
-      const response = await DataRepo.signinWithEmailAndPassword(data.email, data.password);
-      queryClient.clear();
-      clear();
-      return response;
-    },
-    onSettled: (userData, error) => {
-      if (error) {
-        Burnt.toast({
-          preset: 'error',
-          title: error?.message || 'An error occurred',
-        });
-      }
-      if (userData) {
-        setUser(userData);
-        router.push(Routes.HOME);
-      }
-    },
-  });
 
   const loginGoogleMutation = useMutation<UserType, ErrorService>({
     networkMode: 'always',
@@ -65,7 +40,7 @@ const Login = () => {
       }
       if (userData) {
         setUser(userData);
-        router.push(Routes.HOME);
+        router.push(Routes.POKEDEX);
       }
     },
   });
@@ -74,13 +49,12 @@ const Login = () => {
     <DismissKeyboardHOC>
       <View className="cd-h-full cd-flex cd-justify-center cd-flex-col">
         <YStack gap="$4" padding="$6">
-          <Logo classes="cd-text-4xl cd-mb-[12]" colored="fy" normal="Budget" />
+          <Logo classes="cd-text-4xl cd-mb-[12]" colored="Challenge" normal="RN" />
 
           <YStack className="cd-mt-[8]" gap="$2.5">
             <View className="cd-grow">
               <ButtonCustom
                 color="google"
-                disabled={loginMutation.isPending && !loginMutation.isIdle}
                 iconLeft={<LogIn />}
                 loading={loginGoogleMutation.isPending && !loginGoogleMutation.isIdle}
                 text="Sign in with Google"
