@@ -8,7 +8,7 @@ import { useStackScreenOptions } from '@config/screens';
 
 import { getBgColor } from '@utils/styles';
 import { isAndroid } from '@utils/platform';
-import { requestUserPermission } from '@utils/notification';
+import { setupNotifications } from '@utils/notification';
 
 export default function Layout() {
   const { colorScheme } = useColorScheme();
@@ -22,7 +22,11 @@ export default function Layout() {
   });
 
   React.useEffect(() => {
-    requestUserPermission();
+    const unsubscribe = setupNotifications();
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return (
