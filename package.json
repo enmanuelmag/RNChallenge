@@ -12,6 +12,8 @@
     "lint": "expo lint",
     "prepare": "husky",
     "clean:prebuild": "expo prebuild --clean",
+    "clean:prebuild:ios": "expo prebuild --clean --platform ios",
+    "clean:prebuild:android": "expo prebuild --clean --platform android",
     "build:android:debug": "eas build --platform android --profile debug",
     "build:android:local": "eas build --platform android --profile production --local --output ./build/formapp-$(date +'%Y-%m-%d-%H-%M-%S').aab --non-interactive",
     "build:android:production": "eas build --platform android --profile production --auto-submit",
