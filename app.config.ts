@@ -9,7 +9,7 @@ const config: ExpoConfig = {
   slug: 'dev.cardor.enmanuelmag.rnchallenge',
   version: '1.0.0',
   orientation: 'portrait',
-  icon: './src/assets/images/icon.png',
+  icon: './assets/images/icon.png',
   scheme: 'myapp',
   userInterfaceStyle: 'automatic',
   plugins: [
@@ -49,13 +49,13 @@ const config: ExpoConfig = {
       'expo-notifications',
       {
         color: '#FFFFFF',
-        icon: './src/assets/images/icon.png',
+        icon: './assets/images/icon.png',
         defaultChannel: 'default',
       },
     ],
   ],
   splash: {
-    image: './src/assets/images/splash.png',
+    image: './assets/images/splash.png',
     resizeMode: 'contain',
     backgroundColor: '#ffffff',
   },
@@ -66,7 +66,7 @@ const config: ExpoConfig = {
   },
   android: {
     adaptiveIcon: {
-      foregroundImage: './src/assets/images/adaptive-icon.png',
+      foregroundImage: './assets/images/adaptive-icon.png',
       backgroundColor: '#ffffff',
     },
     package: 'dev.cardor.enmanuelmag.rn_challenge',
