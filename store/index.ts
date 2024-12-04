@@ -13,6 +13,7 @@ type UserSlice = {
   user: UserType | null;
   theme: ThemeOptions;
   usedSystemTheme: boolean;
+  pushToken: string | null;
 };
 
 type UserSliceActions = {
@@ -22,6 +23,7 @@ type UserSliceActions = {
   setTheme: (theme: ThemeOptions) => void;
   setUsedSystemTheme: (usedSystemTheme: boolean) => void;
   setTabSelected: (tabSelected: UserSlice['tabSelected']) => void;
+  setPushToken: (pushToken: string | null) => void;
 };
 
 type TeamSlice = {
@@ -42,6 +44,7 @@ const initialUserSlice: UserSlice = {
   theme: 'light',
   tabSelected: 'pokedex',
   usedSystemTheme: false,
+  pushToken: null,
 };
 
 const initialTeamSlice: TeamSlice = {
@@ -55,6 +58,7 @@ export const useAppStore = create(
       ...initialTeamSlice,
       //actions
       clear: () => set({ ...initialUserSlice, ...initialTeamSlice }),
+      setPushToken: (pushToken) => set({ pushToken }),
       setUser: (user) => set({ user }),
       setTheme: (theme) => set({ theme }),
       setUsedSystemTheme: (usedSystemTheme) => set({ usedSystemTheme }),

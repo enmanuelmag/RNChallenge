@@ -8,6 +8,7 @@ import { useStackScreenOptions } from '@config/screens';
 
 import { getBgColor } from '@utils/styles';
 import { isAndroid } from '@utils/platform';
+import { requestUserPermission } from '@utils/notification';
 
 export default function Layout() {
   const { colorScheme } = useColorScheme();
@@ -19,6 +20,10 @@ export default function Layout() {
       <Text className="cd-text-primary cd-text-lg dark:cd-text-primary-dark">Detail</Text>
     ),
   });
+
+  React.useEffect(() => {
+    requestUserPermission();
+  }, []);
 
   return (
     <React.Fragment>

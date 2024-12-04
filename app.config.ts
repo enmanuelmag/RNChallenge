@@ -63,6 +63,9 @@ const config: ExpoConfig = {
     supportsTablet: true,
     bundleIdentifier: 'dev.cardor.enmanuelmag.rn-challenge',
     googleServicesFile: './keys/GoogleService-Info.plist',
+    entitlements: {
+      'aps-environment': 'production',
+    },
   },
   android: {
     adaptiveIcon: {
