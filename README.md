@@ -10,6 +10,14 @@ The features of this app are:
 
 ## Get started
 
+Requirements:
+- Node.js 22 or higher
+- Android API 30 or higher
+- SDK Tools
+
+> For android you have to have an emulator and at least API 30 installed, recommended to use Android Studio to create the virtual device and install the API 30 and SDK required
+> You can see the instructions [here](https://docs.expo.dev/get-started/set-up-your-environment/?mode=development-build&buildEnv=local#set-up-android-studio)
+
 1. Install dependencies
 
    ```bash
@@ -21,9 +29,6 @@ The features of this app are:
    ```bash
     npm run android
    ```
-
-> For android you have to have an emulator and at least API 30 installed, recommended to use Android Studio to create the virtual device and install the API 30 and SDK required
-> You can see the instructions [here](https://docs.expo.dev/get-started/set-up-your-environment/?mode=development-build&buildEnv=local#set-up-android-studio)
 
 3. Start the app for ios (push notifications won't work on iOS simulator)
 

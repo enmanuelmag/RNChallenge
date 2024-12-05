@@ -61,7 +61,7 @@ const Team = () => {
               <React.Fragment>
                 {removeList.length === 1 && (
                   <Text className="cd-text-base cd-text-gray-800 dark:cd-text-gray-200">
-                    Do you want to remove this pokemon from your team?
+                    Do you want to remove this pokemon from your team
                     <Text className="cd-text-blue dark:cd-text-blue-light cd-font-semibold">
                       {' '}
                       {capitalize(removeList[0].name)}
@@ -70,14 +70,12 @@ const Team = () => {
                   </Text>
                 )}
                 {removeList.length > 1 && (
-                  <YStack gap="$2">
-                    <Text className="cd-text-base cd-text-gray-800 dark:cd-text-gray-200">
-                      Do you want to remove these pokemons from your team?
-                    </Text>
+                  <Text className="cd-text-base cd-text-gray-800 dark:cd-text-gray-200">
+                    Do you want to remove these pokemons from your team:{' '}
                     <Text className="cd-text-base cd-text-gray-800 dark:cd-text-gray-200 cd-font-semibold">
                       {removeList.map((p) => capitalize(p.name)).join(', ')}
                     </Text>
-                  </YStack>
+                  </Text>
                 )}
               </React.Fragment>
             }

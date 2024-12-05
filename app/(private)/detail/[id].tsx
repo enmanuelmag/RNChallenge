@@ -106,8 +106,8 @@ const DetailScreen = () => {
           />
           <GradientList>
             <YStack className="cd-h-full" gap="$3" padding="$3">
-              <XStack justifyContent="space-between">
-                <YStack gap="$1">
+              <XStack className="cd-flex cd-flex-row cd-flex-wrap" justifyContent="space-between">
+                <YStack className="cd-basis-[60%]" gap="$1">
                   <Text className="cd-text-gray-900 cd-text-xl cd-font-bold dark:cd-text-gray-100 cd-mb-[8]">
                     {capitalize(data?.name)}
                   </Text>
@@ -119,13 +119,15 @@ const DetailScreen = () => {
                   </Text>
                 </YStack>
                 {data?.sprites.front_default && (
-                  <Image
-                    className="cd-w-full"
-                    contentFit="contain"
-                    placeholder={{ blurhash }}
-                    source={{ uri: data?.sprites.front_default }}
-                    transition={750}
-                  />
+                  <View className="cd-relative cd-basis-[40%] cd-flex cd-justify-center cd-items-center">
+                    <Image
+                      className="cd-h-[92] cd-w-full"
+                      contentFit="contain"
+                      placeholder={{ blurhash }}
+                      source={{ uri: data?.sprites.front_default }}
+                      transition={750}
+                    />
+                  </View>
                 )}
               </XStack>
 
@@ -178,7 +180,7 @@ const DetailScreen = () => {
                     .filter(Boolean)
                     .map((url) => (
                       <Image
-                        className="cd-w-[128] cd-h-[128]"
+                        className="cd-w-[128] cd-h-[128] cd-basis-1/2"
                         contentFit="contain"
                         placeholder={{ blurhash }}
                         source={{ uri: url! }}
