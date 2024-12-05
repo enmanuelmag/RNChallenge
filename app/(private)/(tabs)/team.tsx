@@ -82,9 +82,11 @@ const Team = () => {
             open={confirmRemove}
             title="Remove Pokemon"
             onClose={() => {
+              vibration('light');
               setConfirmRemove(false);
             }}
             onConfirm={() => {
+              vibration('rigid');
               Burnt.toast({
                 preset: 'done',
                 title: 'Pokemon removed!',
@@ -146,6 +148,7 @@ const Team = () => {
                             handlers.add(pokemon);
                           }
                         } else {
+                          vibration('light');
                           router.push(Routes.DETAIL.replace(':id', pokemon.id.toString()));
                         }
                       }}

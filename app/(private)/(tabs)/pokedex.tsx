@@ -18,6 +18,7 @@ import { isLoadingNextPageQuery, isLoadingQuery } from '@utils/network';
 import BaseCard from '@components/pokemon/baseCard';
 import LoaderText from '@components/shared/loaderText';
 import FlatGradientList from '@components/shared/flatGradientList';
+import { vibration } from '@utils/haptics';
 
 type PageType = {
   offset: number;
@@ -74,6 +75,7 @@ const CatchTeam = () => {
                 data={item}
                 key={index}
                 onView={() => {
+                  vibration('light');
                   router.push(Routes.DETAIL.replace(':id', parseId(item.url)));
                 }}
               />
