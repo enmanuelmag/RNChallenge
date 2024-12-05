@@ -33,7 +33,7 @@ The features of this app are:
     npm run ios
    ```
 
-Also a folder `keys` is required with the google-services.json file for android and the GoogleService-Info.plist for iOS, temporarily I will provide the keys in the repo for the app to work without any issues.
+Also a folder `keys` at the root of the project is required with the google-services.json file for android and the GoogleService-Info.plist for iOS, temporarily I will provide the keys in the repo for the app to work without any issues.
 
 ## Loom video
 
