@@ -8,8 +8,6 @@ The features of this app are:
 - Light/Dark mode: The app has a light and dark mode, you can change it in the settings screen
 - Typing system: The app uses TypeScript with Zod to create a type-safe system
 
-``
-
 ## Get started
 
 1. Install dependencies
