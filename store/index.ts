@@ -65,7 +65,7 @@ export const useAppStore = create(
       setTabSelected: (tabSelected) => set({ tabSelected }),
       setPopOverNotification: (popOverNotification) => set({ popOverNotification }),
       //TeamSlice Actions
-      addPokemon: (pokemon) => set((state) => ({ team: [...state.team, pokemon] })),
+      addPokemon: (pokemon) => set((state) => ({ team: [pokemon, ...state.team] })),
       removePokemon: (pokemon) =>
         set((state) => ({ team: state.team.filter((p) => p.id !== pokemon.id) })),
       setTeam: (team) => set({ team }),
