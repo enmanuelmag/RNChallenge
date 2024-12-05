@@ -8,7 +8,7 @@ import ButtonCustom, { colorsStyles } from './button';
 type ConfirmEventProps = {
   title: string;
   content: string | React.ReactNode;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   confirmColor?: keyof typeof colorsStyles;
   confirmText: string;
   onConfirm: () => void;

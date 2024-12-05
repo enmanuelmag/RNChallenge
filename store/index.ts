@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import type { UserType } from '@customTypes/user';
 import { PokemonDetailType } from '@customTypes/pokemon';
+import { NotificationForegroundType } from '@customTypes/notification';
 
 type ThemeOptions = 'light' | 'dark' | string;
 
@@ -13,7 +14,7 @@ type UserSlice = {
   user: UserType | null;
   theme: ThemeOptions;
   usedSystemTheme: boolean;
-  pushToken: string | null;
+  popOverNotification?: NotificationForegroundType | null;
 };
 
 type UserSliceActions = {
@@ -23,7 +24,7 @@ type UserSliceActions = {
   setTheme: (theme: ThemeOptions) => void;
   setUsedSystemTheme: (usedSystemTheme: boolean) => void;
   setTabSelected: (tabSelected: UserSlice['tabSelected']) => void;
-  setPushToken: (pushToken: string | null) => void;
+  setPopOverNotification: (popOverNotification: NotificationForegroundType | null) => void;
 };
 
 type TeamSlice = {
@@ -44,7 +45,7 @@ const initialUserSlice: UserSlice = {
   theme: 'light',
   tabSelected: 'pokedex',
   usedSystemTheme: false,
-  pushToken: null,
+  popOverNotification: null,
 };
 
 const initialTeamSlice: TeamSlice = {
@@ -56,13 +57,14 @@ export const useAppStore = create(
     (set) => ({
       ...initialUserSlice,
       ...initialTeamSlice,
-      //actions
+      //UserSlice Actions
       clear: () => set({ ...initialUserSlice, ...initialTeamSlice }),
-      setPushToken: (pushToken) => set({ pushToken }),
       setUser: (user) => set({ user }),
       setTheme: (theme) => set({ theme }),
       setUsedSystemTheme: (usedSystemTheme) => set({ usedSystemTheme }),
       setTabSelected: (tabSelected) => set({ tabSelected }),
+      setPopOverNotification: (popOverNotification) => set({ popOverNotification }),
+      //TeamSlice Actions
       addPokemon: (pokemon) => set((state) => ({ team: [...state.team, pokemon] })),
       removePokemon: (pokemon) =>
         set((state) => ({ team: state.team.filter((p) => p.id !== pokemon.id) })),

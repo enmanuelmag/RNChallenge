@@ -1,5 +1,8 @@
 import { Platform, PermissionsAndroid } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
+import { NotificationDataType, NotificationForegroundType } from '@customTypes/notification';
+import { router } from 'expo-router';
+import { Routes } from '@constants/routes';
 
 export async function requestUserPermission() {
   if (Platform.OS === 'ios') {
@@ -16,24 +19,36 @@ export async function requestUserPermission() {
   }
 }
 
-export const setupNotifications = () => {
-  try {
-    // Background message handler
-    messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-      console.log('Background Message:', remoteMessage);
-      //navigate to the detail screen
-    });
+type SetupNotificationsParams = {
+  setPopover: (popover: NotificationForegroundType) => void;
+};
 
+export const setupNotifications = (params: SetupNotificationsParams) => {
+  try {
     // Foreground message handler
     const messageUnsubscribe = messaging().onMessage(async (remoteMessage) => {
       console.log('Foreground Message:', remoteMessage);
-      //navigate to the detail screen
+      params.setPopover({
+        title: remoteMessage.notification?.title ?? 'New Pokemon found!',
+        body: remoteMessage.notification?.body ?? 'Let see it',
+        data: remoteMessage.data as NotificationDataType,
+      });
+    });
+
+    // Background message handler
+    messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+      console.log('Background Message:', remoteMessage);
+      const { pokemonId } = remoteMessage.data as NotificationDataType;
+
+      router.push(Routes.DETAIL.replace(':id', pokemonId));
     });
 
     // Handle notification open when app is in background/quit
     const notificationUnsubscribe = messaging().onNotificationOpenedApp((remoteMessage) => {
       console.log('Notification opened:', remoteMessage);
-      //navigate to the detail screen
+      const { pokemonId } = remoteMessage.data as NotificationDataType;
+
+      router.push(Routes.DETAIL.replace(':id', pokemonId));
     });
 
     // Check if app was opened from a notification when app was quit
@@ -42,7 +57,8 @@ export const setupNotifications = () => {
       .then((remoteMessage) => {
         if (remoteMessage) {
           console.log('Notification when app if quit:', remoteMessage);
-          //navigate to the detail screen
+          const { pokemonId } = remoteMessage.data as NotificationDataType;
+          router.push(Routes.DETAIL.replace(':id', pokemonId));
         }
       });
 

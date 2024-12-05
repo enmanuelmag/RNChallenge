@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "372845332658",
+    "project_id": "rn-challenge-9e8d5",
+    "storage_bucket": "rn-challenge-9e8d5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372845332658:android:f22da511388279ce7f21ab",
+        "android_client_info": {
+          "package_name": "dev.cardor.enmanuelmag.rn_challenge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372845332658-4gqaf5ro15da2lg946d7ojgavaa6do4h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHOPslcexDUJTu14gnWBdRZWpi56SMdC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372845332658-4gqaf5ro15da2lg946d7ojgavaa6do4h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "372845332658-6pa3oammnte0s8our1hq43u8g3q3t3hg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.cardor.enmanuelmag.rn-challenge"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

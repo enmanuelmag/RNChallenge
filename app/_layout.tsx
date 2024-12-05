@@ -4,7 +4,6 @@ import tamaguiConfig from '@config/theme';
 import * as SystemUI from 'expo-system-ui';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'nativewind';
-import * as Notifications from 'expo-notifications';
 import { SplashScreen, Slot, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TamaguiProvider, Theme, PortalProvider } from 'tamagui';
@@ -18,14 +17,6 @@ import { useAppStore } from '@store/index';
 import { Routes } from '@constants/routes';
 
 const Provider = process.env.EXPO_PUBLIC_IS_DEV ? QueryClientProvider : PersistQueryClientProvider;
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-  }),
-});
 
 SplashScreen.preventAutoHideAsync();
 

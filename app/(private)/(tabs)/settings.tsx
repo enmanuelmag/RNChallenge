@@ -3,7 +3,6 @@ import React from 'react';
 import { router, Stack } from 'expo-router';
 import { Text, YStack } from 'tamagui';
 import { LogOut } from '@tamagui/lucide-icons';
-import * as Application from 'expo-application';
 import { useQueryClient } from '@tanstack/react-query';
 
 import DataRepo from '@api/datasource';
@@ -44,9 +43,6 @@ const Settings = () => {
         />
       </YStack>
       <YStack gap="$3" justifyContent="flex-end">
-        <Text className="cd-text-gray-500 cd-text-sm cd-text-center">
-          Version: {Application.nativeApplicationVersion}
-        </Text>
         <ButtonCustom
           color="red"
           iconLeft={<LogOut color="white" size="$1" />}
